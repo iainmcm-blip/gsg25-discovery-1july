@@ -1,0 +1,269 @@
+/* ============================================================
+   GSG25 Strategic Discovery — design system
+   ============================================================ */
+
+:root {
+  --green:  #8EC640;
+  --sky:    #29ABE2;
+  --deep:   #145DAB;
+  --orange: #F89821;
+  --red:    #E41F27;
+  --ink:    #0E1B2C;
+  --navy:   #0B1730;
+  --surface:#F6F8FB;
+  --line:   rgba(14,27,44,.10);
+  --line-strong: rgba(14,27,44,.18);
+  --muted:  rgba(14,27,44,.62);
+}
+
+* { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  margin: 0;
+}
+
+::selection { background: rgba(41,171,226,.25); }
+
+/* ---- Type rhythm ---- */
+.display {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+.eyebrow {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--deep);
+}
+.lede { font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.6; color: var(--muted); }
+
+/* ---- Section number chip ---- */
+.sec-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ---- Buttons / links ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border-radius: 999px; padding: .7rem 1.25rem;
+  font-weight: 600; font-size: .9rem; line-height: 1;
+  transition: transform .25s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.btn-primary { background: var(--deep); color: #fff; }
+.btn-primary:hover { background: #0f4a8a; transform: translateY(-2px); }
+.btn-ghost { border: 1px solid var(--line-strong); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--deep); color: var(--deep); transform: translateY(-2px); }
+
+/* ---- Cards ---- */
+.card {
+  background: #fff; border: 1px solid var(--line);
+  border-radius: 18px; padding: 1.6rem;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -24px rgba(11,23,48,.4);
+  border-color: var(--line-strong);
+}
+
+/* ---- Tag / pill ---- */
+.tag {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .68rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; padding: .3rem .65rem; border-radius: 999px;
+}
+.tag-dot::before {
+  content: ""; width: .5rem; height: .5rem; border-radius: 999px; background: currentColor;
+}
+
+/* confidence / territory state colours */
+.state-open   { background: rgba(142,198,64,.14);  color: #4f7314; }
+.state-part   { background: rgba(41,171,226,.14);  color: #136b94; }
+.state-occ    { background: rgba(248,152,33,.16);  color: #a6610b; }
+.state-crowd  { background: rgba(228,31,39,.12);   color: #b21a20; }
+.state-hyp    { background: rgba(20,93,171,.10);   color: var(--deep); }
+
+/* ---- Stat block ---- */
+.stat .num {
+  font-weight: 700; letter-spacing: -0.03em; line-height: 1;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+/* ---- Reveal animation ---- */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal[data-delay="1"] { transition-delay: .08s; }
+.reveal[data-delay="2"] { transition-delay: .16s; }
+.reveal[data-delay="3"] { transition-delay: .24s; }
+.reveal[data-delay="4"] { transition-delay: .32s; }
+.reveal[data-delay="5"] { transition-delay: .40s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ---- Nav ---- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: saturate(140%) blur(12px);
+  background: rgba(255,255,255,.82);
+  border-bottom: 1px solid var(--line);
+}
+.nav a.chip { color: var(--muted); transition: color .2s ease; white-space: nowrap; }
+.nav a.chip:hover, .nav a.chip[aria-current="page"] { color: var(--deep); }
+
+.nav-prog { position: absolute; left: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg,var(--green),var(--sky),var(--deep)); width: 0; }
+
+/* mobile menu */
+#menu { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+#menu.open { max-height: 80vh; }
+
+/* ---- Manifesto / dark sections ---- */
+.dark { background: var(--navy); color: #fff; }
+.dark .lede, .dark .muted { color: rgba(255,255,255,.7); }
+
+/* ---- Ring motif backdrop ---- */
+.ring-motif { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+
+/* ---- Territory grid tiles ---- */
+.terr {
+  border-radius: 16px; padding: 1.4rem; border: 1px solid var(--line);
+  position: relative; overflow: hidden; transition: transform .3s ease, box-shadow .3s ease;
+}
+.terr:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -26px rgba(11,23,48,.45); }
+.terr .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; }
+
+/* ---- Comparison / data table ---- */
+.dtable { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.dtable th, .dtable td { text-align: left; padding: .85rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dtable thead th { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.dtable tbody tr:hover { background: var(--surface); }
+
+/* ---- Expandable competitor ---- */
+.acc-body { max-height: 0; overflow: hidden; transition: max-height .45s ease; }
+.acc.open .acc-body { max-height: 1400px; }
+.acc.open .acc-chev { transform: rotate(180deg); }
+.acc-chev { transition: transform .35s ease; }
+
+/* ---- Strategic toggle ---- */
+.opt { transition: opacity .35s ease, transform .35s ease; }
+.toggle-btn { transition: color .25s ease, background .25s ease, border-color .25s ease; }
+.toggle-btn[aria-selected="true"] { background: var(--deep); color: #fff; border-color: var(--deep); }
+
+/* ---- Footer ---- */
+.footer-link { color: rgba(255,255,255,.65); transition: color .2s ease; }
+.footer-link:hover { color: #fff; }
+
+/* utility */
+.divline { height: 1px; background: var(--line); }
+.kicker-rule { width: 2.5rem; height: 3px; border-radius: 3px; background: var(--deep); }
+.maxw { max-width: 1180px; margin-inline: auto; }
+.confidential {
+  font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--line-strong); border-radius: 999px; padding: .25rem .55rem;
+}
+
+/* ============================================================
+   Present mode + nav controls
+   ============================================================ */
+.present-controls { display: inline-flex; align-items: center; gap: .5rem; margin-left: .5rem; }
+.present-btn {
+  font-size: .68rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: .4rem .75rem;
+  color: var(--ink); background: #fff; cursor: pointer; transition: all .2s ease; white-space: nowrap;
+}
+.present-btn:hover { border-color: var(--deep); color: var(--deep); transform: translateY(-1px); }
+.present-btn.solid { background: var(--deep); color: #fff; border-color: var(--deep); }
+.present-btn.solid:hover { background: #0f4a8a; color: #fff; }
+
+/* active presentation */
+body.present > header,
+body.present > nav,
+body.present > footer { display: none !important; }
+body.present > section { display: none !important; }
+body.present > section.is-active {
+  display: flex !important;
+  flex-direction: column; justify-content: center;
+  min-height: 100vh; width: 100%;
+  padding: 5.5rem clamp(1.25rem, 5vw, 3.5rem) 6rem;
+  scroll-behavior: auto;
+}
+/* present mode animates reveals in order on each beat (driven by gsg.js) */
+/* a touch larger for boardroom legibility */
+@media (min-width: 1024px) { body.present > section.is-active { font-size: 1.06rem; } }
+
+/* progress */
+.present-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 130; display: none;
+  background: linear-gradient(90deg, var(--green), var(--sky), var(--deep));
+  transition: width .35s ease;
+}
+body.present .present-progress { display: block; }
+
+/* corner brand */
+.present-brand {
+  position: fixed; top: .9rem; left: 1rem; z-index: 120; display: none; align-items: center; gap: .5rem;
+  background: rgba(255,255,255,.92); border: 1px solid var(--line); border-radius: 999px;
+  padding: .3rem .7rem .3rem .4rem; box-shadow: 0 6px 20px -12px rgba(11,23,48,.5);
+}
+body.present .present-brand { display: inline-flex; }
+.present-brand img { width: 1.6rem; height: 1.6rem; }
+.present-brand span { font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); font-weight: 600; }
+
+/* HUD */
+.present-hud {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 130; display: none;
+  align-items: center; justify-content: space-between; gap: 1rem; padding: .55rem .9rem;
+  background: rgba(11,23,48,.94); backdrop-filter: blur(10px); color: #fff;
+}
+body.present .present-hud { display: flex; }
+.present-hud .seg { display: flex; align-items: center; gap: .55rem; min-width: 0; }
+.present-hud .label { font-size: .78rem; letter-spacing: .03em; color: rgba(255,255,255,.9); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.present-hud .count { font-variant-numeric: tabular-nums; font-size: .78rem; color: rgba(255,255,255,.6); min-width: 3.5rem; text-align: center; }
+.present-hud button {
+  color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 9px; min-width: 2.1rem; height: 2.1rem; padding: 0 .55rem; font-size: .95rem; line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s ease;
+}
+.present-hud button:hover { background: rgba(255,255,255,.24); }
+.present-hud .hint { font-size: .62rem; color: rgba(255,255,255,.45); letter-spacing: .04em; }
+
+/* facilitator notes */
+.present-notes {
+  position: fixed; right: 0; top: 0; bottom: 0; width: min(360px, 84vw); z-index: 140;
+  background: var(--navy); color: #fff; transform: translateX(100%); transition: transform .3s ease;
+  padding: 4.5rem 1.5rem 6rem; overflow-y: auto; display: none; box-shadow: -20px 0 50px -30px rgba(0,0,0,.7);
+}
+body.present .present-notes { display: block; }
+.present-notes.open { transform: none; }
+.present-notes h4 { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: #7FC4EC; margin: 0 0 .8rem; }
+.present-notes p { font-size: .98rem; line-height: 1.65; color: rgba(255,255,255,.88); margin: 0; }
+
+/* ============================================================
+   Print / PDF leave-behind
+   ============================================================ */
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .nav, #menu, .nav-prog, body > nav, .present-hud, .present-brand, .present-progress, .present-notes, .present-controls { display: none !important; }
+  body.present > section { display: block !important; position: static !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .acc .acc-body { max-height: none !important; }
+  .acc-chev { display: none !important; }
+  [data-opt] { display: block !important; margin-bottom: 1rem; }
+  .dark { background: #0B1730 !important; color: #fff !important; }
+  body { font-size: 10.5pt; }
+  section { break-inside: avoid; page-break-inside: avoid; padding: 16px 0 !important; }
+  h1, h2, h3 { break-after: avoid; }
+  a[href]::after { content: ""; }
+}
