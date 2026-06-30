@@ -342,3 +342,106 @@
     if (resume) enter(resume); // only auto-resumes when arriving via cross-page next/prev
   });
 })();
+
+/* ============================================================
+   GSG25 — Animation & Interaction Enhancements
+   ============================================================ */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var noHover = window.matchMedia('(hover: none)').matches;
+
+  /* ---- Nav scroll shadow ---- */
+  function initNavScrolled() {
+    var nav = document.querySelector('header.nav');
+    if (!nav) return;
+    function upd() { nav.classList.toggle('scrolled', window.pageYOffset > 8); }
+    window.addEventListener('scroll', upd, { passive: true });
+    upd();
+  }
+
+  /* ---- Ring motif parallax ---- */
+  /* Translates the .ring-motif containers at different rates to create depth */
+  function initRingParallax() {
+    var rings = document.querySelectorAll('.ring-motif');
+    if (!rings.length || reduce) return;
+    function upd() {
+      var s = window.pageYOffset;
+      rings.forEach(function (r, i) {
+        var rate = i % 2 === 0 ? 0.055 : -0.04;
+        r.style.transform = 'translateY(' + (s * rate).toFixed(1) + 'px)';
+      });
+    }
+    window.addEventListener('scroll', upd, { passive: true });
+    upd();
+  }
+
+  /* ---- Card 3D perspective tilt on mousemove ---- */
+  function initCardTilt() {
+    if (reduce || noHover) return;
+    document.querySelectorAll('.card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width  - 0.5;
+        var y = (e.clientY - r.top)  / r.height - 0.5;
+        card.style.transform =
+          'translateY(-5px) perspective(600px) rotateX(' + (-y * 8).toFixed(2) + 'deg) rotateY(' + (x * 8).toFixed(2) + 'deg)';
+        card.style.boxShadow = '0 22px 54px -18px rgba(11,23,48,.42)';
+        card.style.borderColor = 'rgba(20,93,171,.18)';
+        card.style.transition =
+          'transform 0.07s ease, box-shadow 0.07s ease, border-color 0.07s ease';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+        card.style.borderColor = '';
+        card.style.transition = '';
+      });
+    });
+  }
+
+  /* ---- Stat landing pulse — fires once when count-up settles ---- */
+  function initStatPulse() {
+    if (reduce) return;
+    var nums = document.querySelectorAll('[data-count]');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        var el = en.target;
+        /* Count-up takes ~1400ms; pulse fires as it lands */
+        setTimeout(function () {
+          el.classList.add('stat-land');
+          el.addEventListener('animationend', function () {
+            el.classList.remove('stat-land');
+          }, { once: true });
+        }, 1480);
+      });
+    }, { threshold: 0.5 });
+    nums.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---- Ambient gradient in dark sections ---- */
+  function initDarkAmbient() {
+    document.querySelectorAll('section.dark').forEach(function (sec) {
+      if (sec.querySelector('.gsg-dark-ambient')) return;
+      var g = document.createElement('div');
+      g.className = 'gsg-dark-ambient';
+      /* randomise the animation phase per section so they don't all drift in sync */
+      var delay = -(Math.floor(sec.dataset.darkIdx || 0) * 4.5);
+      g.style.animationDelay = delay + 's';
+      sec.insertBefore(g, sec.firstChild);
+    });
+    /* tag each section so delays differ */
+    var darks = document.querySelectorAll('section.dark');
+    darks.forEach(function (s, i) { s.dataset.darkIdx = i; });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initNavScrolled();
+    initRingParallax();
+    initCardTilt();
+    initStatPulse();
+    initDarkAmbient();
+  });
+})();
