@@ -137,48 +137,43 @@
    ============================================================ */
 (function () {
   'use strict';
-  var PAGES = ['index.html','01-landscape.html','02-competitive.html','03-brand-audit.html',
-    '04-founders-vision.html','05-voices.html','06-brand-truths.html',
-    '07-strategic-implications.html','08-next-steps.html'];
+  var PAGES = ['index.html','01-founders-vision.html','02-landscape.html','03-competitive.html',
+    '04-brand-audit.html','05-voices.html','06-recommendation.html','07-next-steps.html'];
   var NAMES = {
-    'index.html':'Cover','01-landscape.html':'Landscape','02-competitive.html':'Competitive',
-    '03-brand-audit.html':'Brand Audit','04-founders-vision.html':'Founder’s Vision',
-    '05-voices.html':'Voices','06-brand-truths.html':'Brand Truths',
-    '07-strategic-implications.html':'The Strategic Recommendation','08-next-steps.html':'Next Steps'
+    'index.html':'Cover','01-founders-vision.html':'Founder’s Vision','02-landscape.html':'Landscape',
+    '03-competitive.html':'Competitive','04-brand-audit.html':'Brand Audit',
+    '05-voices.html':'Voices','06-recommendation.html':'The Strategic Recommendation',
+    '07-next-steps.html':'Next Steps'
   };
   /* Facilitator notes keyed by file -> beat index (beats = sections in DOM order) */
   var NOTES = {
     'index.html': {
-      0: 'Open here. Frame it: “Rather than 30 slides, we built the discovery into your own brand. Research is complete — here is the evidence and our recommendation.”',
+      0: 'Open here. Frame it: “Rather than slides, we walk the evidence together — to the territory it points to, and the decision we make as a group.”',
       1: 'Research status: everything is complete. This is the territory-confirmation meeting.',
-      2: 'The six findings — from the opportunity to the decision required today.',
-      3: 'Our evidence standard: every claim rated and sourced — including Accessible Excellence, now research-confirmed.',
-      4: 'The path we’ll walk — eight short sections, building to the decision.'
+      2: 'The three findings — and what each means for GSG at 25.',
+      3: 'The path we’ll walk — seven short sections, building to the decision.'
     },
-    '01-landscape.html': {
-      0: 'Section 01 — the opportunity is now.',
-      1: 'Land the scale: the local learner is the growth story — GSG’s home turf.',
-      2: 'Three trends, all pointing GSG’s way. Connected explicitly in Section 07.'
-    },
-    '02-competitive.html': {
-      0: 'Section 02 — where everyone stands.',
-      1: 'Five groups, all private. Nobody sits where GSG could — none combine access with non-selective proof.',
-      2: 'The “Thrive” flag — a live landmine. We must not use Cognita’s word.',
-      3: 'THE pivotal beat. Walk the map; land on the green — Accessible Excellence.'
-    },
-    '03-brand-audit.html': {
-      0: 'Section 03 — you already say it.',
-      1: '“Learn Limitless” is live and the manifesto is published — but not deployed beyond the website.',
-      2: 'Read the manifesto aloud. Let it breathe — then: deployed on exactly one page.',
-      3: 'Says vs built — the distance is the opportunity. (SmartLearn now stated as 45,000 students.)',
-      4: 'Two visual systems in parallel — the most urgent fix before any creative begins.'
-    },
-    '04-founders-vision.html': {
-      0: 'Section 04 — the conviction beneath the brand.',
-      1: 'Atul’s own words. Let him react and expand.',
+    '01-founders-vision.html': {
+      0: 'Section 01 — start with the conviction the brand was built on.',
+      1: 'Atul’s own words on the founding problem. Let him react and expand.',
       2: 'Five beliefs that pre-date the strategy — they ARE the strategy.',
-      3: '25 years of proof. The non-selective 37.2 is the hardest number to argue with.',
+      3: '25 years of proof. Land the Deming Prize (world first) and the non-selective 37.2.',
       4: 'External validation — none of it self-awarded.'
+    },
+    '02-landscape.html': {
+      0: 'Section 02 — the opportunity is now.',
+      1: 'Land the scale: the local learner is the growth story — GSG’s home turf.',
+      2: 'Three trends, all pointing GSG’s way — and how GSG already lives each.'
+    },
+    '03-competitive.html': {
+      0: 'Section 03 — where everyone stands.',
+      1: 'Five groups, all carrying for-profit equity. GSG is the outlier: no external investor.',
+      2: 'THE pivotal beat. Walk the map; land on the green — Accessible Excellence. Each tile has the recommended move.'
+    },
+    '04-brand-audit.html': {
+      0: 'Section 04 — the distance between what GSG says and what it has built.',
+      1: 'Says vs built — the gap is the opportunity. SmartLearn = 45,000 students.',
+      2: 'The opportunity: arm the line with proof; make SmartLearn the signature.'
     },
     '05-voices.html': {
       0: 'Section 05 — primary research complete. Three voices, one direction.',
@@ -187,21 +182,18 @@
       3: 'Converge vs diverge: the territory resonates; internal alignment is the prerequisite.',
       4: 'THE moment. Three insiders, unprompted, describe Accessible Excellence in their own words.'
     },
-    '06-brand-truths.html': {
-      0: 'Section 06 — five brand truths, each confirmed by at least two of three interviewees.',
-      1: 'Walk the five. Truth 01 (Accessible Excellence) and 05 (the alumni) are the emotional anchors.'
+    '06-recommendation.html': {
+      0: 'Section 06 — the decision.',
+      1: 'The four brand truths, then the future-forward framing.',
+      2: 'State the recommendation plainly: Accessible Excellence, “Learn Limitless” retained as the signature line.',
+      3: 'Toggle A vs B live with Atul if useful — the research backs B.',
+      4: 'Proven vs qualified — the editorial discipline. This earns trust.',
+      5: 'Guardrails — what we will NOT do. Discipline is the strategy.'
     },
-    '07-strategic-implications.html': {
-      0: 'Section 07 — the decision. Both options framed, but research confirms Option B.',
-      1: 'State the recommendation plainly: Accessible Excellence, with “Learn Limitless” retained as the signature line.',
-      2: 'Toggle A vs B live with Atul if useful — the research backs B.',
-      3: 'Honest assessment — what is proven vs still becoming. This earns trust.',
-      4: 'Guardrails — what we will NOT do. Discipline is the strategy.'
-    },
-    '08-next-steps.html': {
-      0: 'Section 08 — owners, actions, timing.',
+    '07-next-steps.html': {
+      0: 'Section 07 — owners, actions, timing.',
       1: 'Confirm the territory TODAY; make the commitments in the room.',
-      2: 'Close: territory confirmed — next stop is Atul’s sign-off, then creative.'
+      2: 'Close: where the evidence points — next stop is Atul’s sign-off, then creative.'
     }
   };
 
