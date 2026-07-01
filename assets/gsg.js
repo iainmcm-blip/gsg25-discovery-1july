@@ -312,11 +312,9 @@
     var menuBtn = bar.querySelector('#menu-btn');
     var wrap = document.createElement('span'); wrap.className = 'present-controls';
     wrap.innerHTML =
-      '<button class="present-btn" data-pdf title="Save as PDF">PDF</button>' +
       '<button class="present-btn solid" data-present title="Present (P)">▶ Present</button>';
     if (menuBtn) bar.insertBefore(wrap, menuBtn); else bar.appendChild(wrap);
     wrap.querySelector('[data-present]').addEventListener('click', function () { enter('first'); });
-    wrap.querySelector('[data-pdf]').addEventListener('click', function () { window.print(); });
   }
 
   function onKey(e) {
